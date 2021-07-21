@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+
+		<Product>Provisum</Product>
+		<Description>Provisum components</Description>
+		<Version>1.0.0</Version>
+
+		<Authors>Connor Haigh</Authors>
+		<Copyright>Connor Haigh 2020</Copyright>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+</Project>
