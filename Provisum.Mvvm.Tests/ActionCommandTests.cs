@@ -40,14 +40,10 @@ namespace Provisum.Mvvm.Tests
 		[TestMethod]
 		public void TesCanExecuteChangedRaised()
 		{
-			var command = new ActionCommand(() => { });
 			var canExecuteChangedRaised = false;
+			var command = new ActionCommand(() => { });
 
-			command.CanExecuteChanged += (sender, args) =>
-			{
-				canExecuteChangedRaised = true;
-			};
-
+			command.CanExecuteChanged += (s, e) => canExecuteChangedRaised = true;
 			command.RaiseCanExecuteChanged();
 
 			Assert.IsTrue(canExecuteChangedRaised);

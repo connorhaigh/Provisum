@@ -33,10 +33,7 @@ namespace Provisum.Mvvm
 			}
 			else
 			{
-				this.errors[property] = new List<string>()
-				{
-					error
-				};
+				this.errors[property] = new List<string>() { error };
 			}
 		}
 

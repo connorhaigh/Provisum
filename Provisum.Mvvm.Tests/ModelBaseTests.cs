@@ -7,20 +7,15 @@ namespace Provisum.Mvvm.Tests
 	{
 		private sealed class MockModelBase : ModelBase
 		{
-			public void AddAlphaError() => this.AddError(nameof(this.Alpha), "Alpha Error");
-			public void AddBetaError() => this.AddError(nameof(this.Beta), "Beta Error");
-			public void RemoveAlphaErrors() => this.RemoveErrors(nameof(this.Alpha));
-
-			public void Reset() => this.ClearErrors();
-
-			public string Alpha { get; set; } = null;
-			public string Beta { get; set; } = null;
+			public new void AddError(string property, string error) => base.AddError(property, error);
+			public new void RemoveErrors(string property) => base.RemoveErrors(property);
+			public new void ClearErrors() => base.ClearErrors();
 		}
 
 		[TestMethod]
 		public void TestAddSingleError()
 		{
-			this.modelBase.AddAlphaError();
+			this.modelBase.AddError("Alpha", "Alpha Error");
 
 			Assert.IsNotNull(this.modelBase["Alpha"]);
 		}
@@ -28,8 +23,8 @@ namespace Provisum.Mvvm.Tests
 		[TestMethod]
 		public void TestAddMultipleErrors()
 		{
-			this.modelBase.AddAlphaError();
-			this.modelBase.AddBetaError();
+			this.modelBase.AddError("Alpha", "Alpha Error");
+			this.modelBase.AddError("Beta", "Beta Error");
 
 			Assert.IsNotNull(this.modelBase["Alpha"]);
 			Assert.IsNotNull(this.modelBase["Beta"]);
@@ -38,10 +33,10 @@ namespace Provisum.Mvvm.Tests
 		[TestMethod]
 		public void TestRemoveSingleError()
 		{
-			this.modelBase.AddAlphaError();
-			this.modelBase.AddBetaError();
+			this.modelBase.AddError("Alpha", "Alpha Error");
+			this.modelBase.AddError("Beta", "Beta Error");
 
-			this.modelBase.RemoveAlphaErrors();
+			this.modelBase.RemoveErrors("Alpha");
 
 			Assert.IsNull(this.modelBase["Alpha"]);
 			Assert.IsNotNull(this.modelBase["Beta"]);
@@ -50,10 +45,10 @@ namespace Provisum.Mvvm.Tests
 		[TestMethod]
 		public void TestClearErrors()
 		{
-			this.modelBase.AddAlphaError();
-			this.modelBase.AddBetaError();
+			this.modelBase.AddError("Alpha", "Alpha Error");
+			this.modelBase.AddError("Beta", "Beta Error");
 
-			this.modelBase.Reset();
+			this.modelBase.ClearErrors();
 
 			Assert.IsNull(this.modelBase["Alpha"]);
 			Assert.IsNull(this.modelBase["Beta"]);

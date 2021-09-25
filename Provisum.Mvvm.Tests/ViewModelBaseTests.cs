@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Provisum.Mvvm.Tests
@@ -8,55 +9,45 @@ namespace Provisum.Mvvm.Tests
 	{
 		private sealed class MockViewModelBase : ViewModelBase
 		{
-			public string SetAndNotifyProperty
-			{
-				get => this.setAndNotify;
-				set => this.SetAndNotify(ref this.setAndNotify, value, nameof(this.SetAndNotifyProperty));
-			}
-
-			public string RunAndNotifyProperty
-			{
-				get => this.runAndNotify;
-				set => this.RunAndNotify(() => this.runAndNotify = value, nameof(this.RunAndNotifyProperty));
-			}
-
-			private string setAndNotify = null;
-			private string runAndNotify = null;
+			public new void SetAndNotify<T>(ref T field, T value, string property) => base.SetAndNotify(ref field, value, property);
+			public new void RunAndNotify(Action action, string property) => base.RunAndNotify(action, property);
 		}
 
 		[TestMethod]
 		public void TestSetAndNotify()
 		{
-			var viewModel = new MockViewModelBase();
+			var propertyChangedPropertyNames = new List<string>();
+			var field = "Field";
 
-			this.viewModelBase.SetAndNotifyProperty = "Jersey";
+			this.viewModelBase.PropertyChanged += (s, e) => propertyChangedPropertyNames.Add(e.PropertyName);
+			this.viewModelBase.SetAndNotify(ref field, "SetAndNotify", "SetAndNotifyProperty");
 
-			Assert.AreEqual(this.viewModelBase.SetAndNotifyProperty, "Jersey");
+			Assert.AreEqual("SetAndNotify", field);
+			Assert.AreEqual("SetAndNotifyProperty", propertyChangedPropertyNames[0]);
 		}
 
 		[TestMethod]
 		public void TestRunAndNotify()
 		{
-			this.viewModelBase.RunAndNotifyProperty = "Guernsey";
+			var propertyChangedPropertyNames = new List<string>();
+			var executed = false;
 
-			Assert.AreEqual(this.viewModelBase.RunAndNotifyProperty, "Guernsey");
+			this.viewModelBase.PropertyChanged += (s, e) => propertyChangedPropertyNames.Add(e.PropertyName);
+			this.viewModelBase.RunAndNotify(() => executed = true, "RunAndNotifyProperty");
+
+			Assert.IsTrue(executed);
+			Assert.AreEqual("RunAndNotifyProperty", propertyChangedPropertyNames[0]);
 		}
 
 		[TestMethod]
-		public void TestPropertyChangedRaised()
+		public void TestRaisePropertyChanged()
 		{
-			var propertyNames = new List<string>();
+			var propertyChangedPropertyNames = new List<string>();
 
-			this.viewModelBase.PropertyChanged += (sender, args) =>
-			{
-				propertyNames.Add(args.PropertyName);
-			};
+			this.viewModelBase.PropertyChanged += (s, e) => propertyChangedPropertyNames.Add(e.PropertyName);
+			this.viewModelBase.RaisePropertyChanged("Property");
 
-			this.viewModelBase.SetAndNotifyProperty = "Foo";
-			this.viewModelBase.RunAndNotifyProperty = "Bar";
-
-			Assert.AreEqual(propertyNames[0], "SetAndNotifyProperty");
-			Assert.AreEqual(propertyNames[1], "RunAndNotifyProperty");
+			Assert.AreEqual("Property", propertyChangedPropertyNames[0]);
 		}
 
 		private readonly MockViewModelBase viewModelBase = new MockViewModelBase();

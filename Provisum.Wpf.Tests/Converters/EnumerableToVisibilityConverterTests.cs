@@ -24,7 +24,7 @@ namespace Provisum.Wpf.Tests.Converters
 				"Charlie"
 			};
 
-			Assert.AreEqual(converter.Convert(list, null, null, null), Visibility.Visible);
+			Assert.AreEqual(Visibility.Visible, converter.Convert(list, null, null, null));
 		}
 
 		[TestMethod]
@@ -37,7 +37,7 @@ namespace Provisum.Wpf.Tests.Converters
 				Count = 3
 			};
 
-			var notEmptyList = new List<string>()
+			var populatedList = new List<string>()
 			{
 				"Alpha",
 				"Bravo",
@@ -52,8 +52,8 @@ namespace Provisum.Wpf.Tests.Converters
 				"Charlie",
 			};
 
-			Assert.AreEqual(converter.Convert(notEmptyList, null, null, null), Visibility.Visible);
-			Assert.AreEqual(converter.Convert(emptyList, null, null, null), Visibility.Collapsed);
+			Assert.AreEqual(Visibility.Visible, converter.Convert(populatedList, null, null, null));
+			Assert.AreEqual(Visibility.Collapsed, converter.Convert(emptyList, null, null, null));
 		}
 
 		[TestMethod]
@@ -67,7 +67,7 @@ namespace Provisum.Wpf.Tests.Converters
 
 			var list = new List<string>();
 
-			Assert.AreEqual(converter.Convert(list, null, null, null), Visibility.Collapsed);
+			Assert.AreEqual(Visibility.Collapsed, converter.Convert(list, null, null, null));
 		}
 	}
 }

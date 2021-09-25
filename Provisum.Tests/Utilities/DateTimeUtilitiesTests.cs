@@ -7,45 +7,45 @@ namespace Provisum.Tests.Utilities
 	public sealed class DateTimeUtilitiesTests
 	{
 		[TestMethod]
-		public void TestNow()
+		public void TestGetTimeAgoNow()
 		{
-			Assert.AreEqual(DateTimeUtilities.GetTimeAgo(0), "Now");
+			Assert.AreEqual("Now", DateTimeUtilities.GetTimeAgo(0));
 		}
 
 		[TestMethod]
-		public void TestOneMinuteAgo()
+		public void TestGetTimeAgoOneMinute()
 		{
-			Assert.AreEqual(DateTimeUtilities.GetTimeAgo(60), "1 minutes ago");
+			Assert.AreEqual("1 minutes ago", DateTimeUtilities.GetTimeAgo(60));
 		}
 
 		[TestMethod]
-		public void TestOneHourAgo()
+		public void TestGetTimeAgoOneHour()
 		{
-			Assert.AreEqual(DateTimeUtilities.GetTimeAgo(3600), "1 hours ago");
+			Assert.AreEqual("1 hours ago", DateTimeUtilities.GetTimeAgo(3600));
 		}
 
 		[TestMethod]
-		public void TestOneDayAgo()
+		public void TestGetTimeAgoOneDay()
 		{
-			Assert.AreEqual(DateTimeUtilities.GetTimeAgo(86400), "1 days ago");
+			Assert.AreEqual("1 days ago", DateTimeUtilities.GetTimeAgo(86400));
 		}
 
 		[TestMethod]
-		public void TestOneWeekAgo()
+		public void TestGetTimeAgoOneWeek()
 		{
-			Assert.AreEqual(DateTimeUtilities.GetTimeAgo(604800), "1 weeks ago");
+			Assert.AreEqual("1 weeks ago", DateTimeUtilities.GetTimeAgo(604800));
 		}
 
 		[TestMethod]
-		public void TestOneMonthAgo()
+		public void TestGetTimeAgoOneMonth()
 		{
-			Assert.AreEqual(DateTimeUtilities.GetTimeAgo(2592000), "1 months ago");
+			Assert.AreEqual("1 months ago", DateTimeUtilities.GetTimeAgo(2592000));
 		}
 
 		[TestMethod]
-		public void TestOneYearAgo()
+		public void TestGetTimeAgoOneYear()
 		{
-			Assert.AreEqual(DateTimeUtilities.GetTimeAgo(31622400), "1 years ago");
+			Assert.AreEqual("1 years ago", DateTimeUtilities.GetTimeAgo(31622400));
 		}
 	}
 }

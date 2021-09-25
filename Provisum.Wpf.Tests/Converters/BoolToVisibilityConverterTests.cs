@@ -16,7 +16,7 @@ namespace Provisum.Wpf.Tests.Converters
 				FalseVisibility = Visibility.Collapsed
 			};
 
-			Assert.AreEqual(converter.Convert(true, null, null, null), Visibility.Visible);
+			Assert.AreEqual(Visibility.Visible, converter.Convert(true, null, null, null));
 		}
 
 		[TestMethod]
@@ -28,7 +28,7 @@ namespace Provisum.Wpf.Tests.Converters
 				FalseVisibility = Visibility.Collapsed
 			};
 
-			Assert.AreEqual(converter.Convert(false, null, null, null), Visibility.Collapsed);
+			Assert.AreEqual(Visibility.Collapsed, converter.Convert(false, null, null, null));
 		}
 	}
 }

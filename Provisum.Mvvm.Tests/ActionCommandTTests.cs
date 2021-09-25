@@ -21,11 +21,10 @@ namespace Provisum.Mvvm.Tests
 		{
 			var command = new ActionCommand<string>((argument) =>
 			{
-				Assert.IsNotNull(argument);
-				Assert.AreEqual(argument, "Jersey");
+				Assert.AreEqual("Argument", argument);
 			});
 
-			command.Execute("Jersey");
+			command.Execute("Argument");
 		}
 
 		[TestMethod]
@@ -46,13 +45,12 @@ namespace Provisum.Mvvm.Tests
 		{
 			var command = new ActionCommand<string>(a => { }, argument =>
 			{
-				Assert.IsNotNull(argument);
-				Assert.AreEqual(argument, "Guernsey");
+				Assert.AreEqual("Argument", argument);
 
 				return true;
 			});
 
-			Assert.IsTrue(command.CanExecute("Guernsey"));
+			Assert.IsTrue(command.CanExecute("Argument"));
 		}
 
 		[TestMethod]
@@ -69,11 +67,7 @@ namespace Provisum.Mvvm.Tests
 			var canExecuteChangedRaised = false;
 			var command = new ActionCommand<object>(a => { });
 
-			command.CanExecuteChanged += (sender, args) =>
-			{
-				canExecuteChangedRaised = true;
-			};
-
+			command.CanExecuteChanged += (s, e) => canExecuteChangedRaised = true;
 			command.RaiseCanExecuteChanged();
 
 			Assert.IsTrue(canExecuteChangedRaised);
