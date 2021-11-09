@@ -37,7 +37,7 @@ namespace Provisum.Wpf.Tests.Converters
 				Count = 3
 			};
 
-			var populatedList = new List<string>()
+			var notEmptyList = new List<string>()
 			{
 				"Alpha",
 				"Bravo",
@@ -52,7 +52,7 @@ namespace Provisum.Wpf.Tests.Converters
 				"Charlie",
 			};
 
-			Assert.AreEqual(Visibility.Visible, converter.Convert(populatedList, null, null, null));
+			Assert.AreEqual(Visibility.Visible, converter.Convert(notEmptyList, null, null, null));
 			Assert.AreEqual(Visibility.Collapsed, converter.Convert(emptyList, null, null, null));
 		}
 
