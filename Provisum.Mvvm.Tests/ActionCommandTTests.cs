@@ -9,7 +9,7 @@ namespace Provisum.Mvvm.Tests
 		public void TestExecute()
 		{
 			var executed = false;
-			var command = new ActionCommand<object>((a) => executed = true);
+			var command = new ActionCommand<object>(a => executed = true);
 
 			command.Execute(null);
 
@@ -19,7 +19,7 @@ namespace Provisum.Mvvm.Tests
 		[TestMethod]
 		public void TestExecuteParameter()
 		{
-			var command = new ActionCommand<string>((argument) =>
+			var command = new ActionCommand<string>(argument =>
 			{
 				Assert.AreEqual("Argument", argument);
 			});

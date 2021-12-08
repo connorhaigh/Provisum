@@ -23,16 +23,15 @@ namespace Provisum.Wpf.Converters
 				while (enumerator.MoveNext())
 				{
 					count++;
+
+					if (count > this.Count)
+					{
+						return this.NotEmptyVisibility;
+
+					}
 				}
 
-				if (count > this.Count)
-				{
-					return this.NotEmptyVisibility;
-				}
-				else
-				{
-					return this.EmptyVisibility;
-				}
+				return this.EmptyVisibility;
 			}
 
 			throw new ArgumentException("Value is not an IEnumerable.", nameof(value));
