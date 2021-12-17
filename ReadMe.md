@@ -2,7 +2,9 @@
 
 Provisum is a C# library to assist with general application development.
 
-## Components
+## Overview
+
+Each component is designed to provide a subset of functionality in a given context.
 
 ### Provisum
 
