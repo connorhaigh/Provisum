@@ -9,7 +9,7 @@
 		<Authors>Connor Haigh</Authors>
 		<Copyright>Connor Haigh 2020</Copyright>
 
-		<IsPackable>false</IsPackable>
+		<IsPackable>False</IsPackable>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -10,7 +10,7 @@
 		<Authors>Connor Haigh</Authors>
 		<Copyright>Connor Haigh 2021</Copyright>
 
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

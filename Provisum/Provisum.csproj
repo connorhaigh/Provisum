@@ -9,6 +9,6 @@
 		<Authors>Connor Haigh</Authors>
 		<Copyright>Connor Haigh 2020</Copyright>
 
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 </Project>
