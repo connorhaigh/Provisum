@@ -3,11 +3,11 @@
 		<TargetFramework>net6.0</TargetFramework>
 
 		<Product>Provisum MVVM Tests</Product>
-		<Description>Provisum MVVM tests</Description>
+		<Description>Provisum MVVM library tests</Description>
 		<Version>1.0.0</Version>
 
 		<Authors>Connor Haigh</Authors>
-		<Copyright>Connor Haigh 2020</Copyright>
+		<Copyright>Connor Haigh 2021</Copyright>
 
 		<IsPackable>False</IsPackable>
 	</PropertyGroup>

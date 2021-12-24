@@ -3,12 +3,32 @@
 		<TargetFramework>net6.0</TargetFramework>
 
 		<Product>Provisum</Product>
-		<Description>Provisum components</Description>
+		<Description>Provisum is a C# library that provides a set of functionality to assist with application development.</Description>
 		<Version>1.0.0</Version>
 
 		<Authors>Connor Haigh</Authors>
-		<Copyright>Connor Haigh 2020</Copyright>
+		<Copyright>Connor Haigh 2021</Copyright>
 
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+		<PackageId>Provisum</PackageId>
+		<PackageIcon>Icon.png</PackageIcon>
+		<PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>services, utilities, modular, application development, dependency injection</PackageTags>
+
+		<RepositoryUrl>https://github.com/connorhaigh/Provisum</RepositoryUrl>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\Icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\ReadMe.md">
+			<PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+		</None>
+	</ItemGroup>
 </Project>
