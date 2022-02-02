@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using Provisum.Desktop.Services;
 using Provisum.Mvvm;
+using Provisum.Services;
 
 namespace Provisum.Wpf.Mvvm.Services
 {

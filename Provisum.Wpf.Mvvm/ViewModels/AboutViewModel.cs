@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using Provisum.Desktop.Services;
 using Provisum.Mvvm;
 using Provisum.Services;
 

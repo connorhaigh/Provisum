@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Provisum.Desktop.Services;
+using Provisum.Services;
 
 namespace Provisum.Wpf.Services
 {

@@ -1,4 +1,4 @@
-﻿namespace Provisum.Desktop.Services
+﻿namespace Provisum.Services
 {
 	/// <summary>
 	/// Represents a window service, for showing and hiding windows.
