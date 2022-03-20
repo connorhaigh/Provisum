@@ -38,7 +38,7 @@ namespace Provisum.Wpf.Mvvm.Services
 
 			if (this.views.ContainsKey(viewModel))
 			{
-				throw new ViewModelWindowServiceException("View model has already been shown.");
+				throw new ViewModelWindowServiceException("View model instance has already been shown.");
 			}
 
 			var view = (Window) Activator.CreateInstance(viewType);
@@ -54,8 +54,9 @@ namespace Provisum.Wpf.Mvvm.Services
 				view.Closed -= eventHandler;
 			};
 
-			this.views.Add(viewModel, view);
 			this.windowService.Show(view, mode);
+
+			this.views.Add(viewModel, view);
 		}
 
 		/// <inheritdoc />
@@ -68,11 +69,12 @@ namespace Provisum.Wpf.Mvvm.Services
 
 			if (!this.views.TryGetValue(viewModel, out var view))
 			{
-				throw new ViewModelWindowServiceException("View model is already hidden.");
+				throw new ViewModelWindowServiceException("View model instance is not visible.");
 			}
 
-			this.views.Remove(viewModel);
 			this.windowService.Hide(view);
+
+			this.views.Remove(viewModel);
 		}
 
 		/// <summary>

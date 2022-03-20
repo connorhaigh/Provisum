@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using Provisum.Services;
+using Provisum.Wpf.Extensions;
 
 namespace Provisum.Wpf.Services
 {
 	/// <summary>
-	/// Represents a default window service.
+	/// Represents a native window service.
 	/// </summary>
-	public sealed class DefaultWindowService : IWindowService<Window>
+	public sealed class NativeWindowService : IWindowService<Window>
 	{
 		/// <inheritdoc />
 		public void Show(Window window, WindowServiceShowMode mode)
@@ -19,18 +18,7 @@ namespace Provisum.Wpf.Services
 				throw new ArgumentNullException(nameof(window));
 			}
 
-			window.Owner = this.windows.LastOrDefault();
-
-			EventHandler eventHandler = null;
-
-			window.Closed += eventHandler = (sender, args) =>
-			{
-				window.Closed -= eventHandler;
-
-				this.windows.Remove(window);
-			};
-
-			this.windows.Add(window);
+			window.Owner = Application.Current.GetLastActiveWindow();
 
 			switch (mode)
 			{
@@ -53,11 +41,7 @@ namespace Provisum.Wpf.Services
 				throw new ArgumentNullException(nameof(window));
 			}
 
-			this.windows.Remove(window);
-
 			window.Hide();
 		}
-
-		private readonly ICollection<Window> windows = new List<Window>();
 	}
 }

@@ -2,13 +2,14 @@
 using System.Windows;
 using Microsoft.Win32;
 using Provisum.Services;
+using Provisum.Wpf.Extensions;
 
 namespace Provisum.Wpf.Services
 {
 	/// <summary>
-	/// Represents a default dialog service.
+	/// Represents a native dialog service.
 	/// </summary>
-	public sealed class DefaultDialogService : IDialogService
+	public sealed class NativeDialogService : IDialogService
 	{
 		/// <inheritdoc />
 		public void ShowMessage(string title, string message)
@@ -23,7 +24,7 @@ namespace Provisum.Wpf.Services
 				throw new ArgumentNullException(nameof(message));
 			}
 
-			MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+			MessageBox.Show(Application.Current.GetLastActiveWindow(), message, title, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
 		}
 
 		/// <inheritdoc />
@@ -39,7 +40,7 @@ namespace Provisum.Wpf.Services
 				throw new ArgumentNullException(nameof(message));
 			}
 
-			return MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes;
+			return MessageBox.Show(Application.Current.GetLastActiveWindow(), message, title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes;
 		}
 
 		/// <inheritdoc />
@@ -55,7 +56,7 @@ namespace Provisum.Wpf.Services
 			if (file != null) { dialog.FileName = file; }
 			if (filter != null) { dialog.Filter = filter; }
 
-			var result = dialog.ShowDialog();
+			var result = dialog.ShowDialog(Application.Current.GetLastActiveWindow());
 
 			if (result == true)
 			{
@@ -80,7 +81,7 @@ namespace Provisum.Wpf.Services
 			if (file != null) { dialog.FileName = file; }
 			if (filter != null) { dialog.Filter = filter; }
 
-			var result = dialog.ShowDialog();
+			var result = dialog.ShowDialog(Application.Current.GetLastActiveWindow());
 
 			if (result == true)
 			{
