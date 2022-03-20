@@ -54,9 +54,9 @@ namespace Provisum.Wpf.Mvvm.Services
 				view.Closed -= eventHandler;
 			};
 
-			this.windowService.Show(view, mode);
-
 			this.views.Add(viewModel, view);
+
+			this.windowService.Show(view, mode);
 		}
 
 		/// <inheritdoc />
@@ -72,9 +72,9 @@ namespace Provisum.Wpf.Mvvm.Services
 				throw new ViewModelWindowServiceException("View model instance is not visible.");
 			}
 
-			this.windowService.Hide(view);
-
 			this.views.Remove(viewModel);
+
+			this.windowService.Hide(view);
 		}
 
 		/// <summary>
