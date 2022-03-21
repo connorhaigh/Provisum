@@ -49,8 +49,8 @@ namespace Provisum.Services.Persistence
 
 			var xml = await File.ReadAllTextAsync(this.file);
 
-			using (var stringReader = new StringReader(xml))
-			using (var xmlReader = XmlReader.Create(stringReader, XmlFilePersistenceService<T>.readerSettings))
+			using (var streamReader = new StringReader(xml))
+			using (var xmlReader = XmlReader.Create(streamReader, XmlFilePersistenceService<T>.readerSettings))
 			{
 				await Task.Run(() => this.Entity = (T) this.serializer.Deserialize(xmlReader));
 			}
@@ -62,11 +62,10 @@ namespace Provisum.Services.Persistence
 		/// <returns>A task representing the operation.</returns>
 		public async Task Save()
 		{
-			using (var stringWriter = new StreamWriter(this.file))
-			using (var xmlWriter = XmlWriter.Create(stringWriter, XmlFilePersistenceService<T>.writerSettings))
+			using (var streamReader = new StreamWriter(this.file))
+			using (var xmlWriter = XmlWriter.Create(streamReader, XmlFilePersistenceService<T>.writerSettings))
 			{
 				await Task.Run(() => this.serializer.Serialize(xmlWriter, this.Entity));
-				await File.WriteAllTextAsync(this.file, stringWriter.ToString());
 			}
 		}
 
@@ -82,12 +81,7 @@ namespace Provisum.Services.Persistence
 
 		private static readonly XmlWriterSettings writerSettings = new XmlWriterSettings()
 		{
-			NamespaceHandling = NamespaceHandling.Default,
-			ConformanceLevel = ConformanceLevel.Document,
-			Indent = true,
-			IndentChars = "\t",
-			NewLineChars = "\r\n",
-			NewLineOnAttributes = true
+			ConformanceLevel = ConformanceLevel.Document
 		};
 
 		private readonly XmlSerializer serializer = new XmlSerializer(typeof(T));

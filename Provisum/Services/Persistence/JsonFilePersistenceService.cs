@@ -69,11 +69,10 @@ namespace Provisum.Services.Persistence
 		{
 			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 			DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
-			WriteIndented = true,
-			AllowTrailingCommas = false,
 			IgnoreReadOnlyProperties = true,
 			IgnoreReadOnlyFields = true,
-			IncludeFields = false
+			IncludeFields = false,
+			AllowTrailingCommas = false
 		};
 
 		private readonly string file = null;

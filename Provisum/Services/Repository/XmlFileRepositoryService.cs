@@ -40,10 +40,10 @@ namespace Provisum.Services.Repository
 
 			var xml = await File.ReadAllTextAsync(this.file);
 
-			using (var stringReader = new StringReader(xml))
-			using (var xmlReader = XmlReader.Create(stringReader, XmlFileRepositoryService<T>.readerSettings))
+			using (var streamReader = new StringReader(xml))
+			using (var xmlReader = XmlReader.Create(streamReader, XmlFileRepositoryService<T>.readerSettings))
 			{
-				await Task.Run(() => this.entities = (ICollection<T>) this.serializer.Deserialize(xmlReader));
+				await Task.Run(() => this.entities = (List<T>) this.serializer.Deserialize(xmlReader));
 			}
 		}
 
@@ -53,11 +53,10 @@ namespace Provisum.Services.Repository
 		/// <returns>A task representing the operation.</returns>
 		public async Task Save()
 		{
-			using (var stringWriter = new StreamWriter(this.file))
-			using (var xmlWriter = XmlWriter.Create(stringWriter, XmlFileRepositoryService<T>.writerSettings))
+			using (var streamWriter = new StreamWriter(this.file))
+			using (var xmlWriter = XmlWriter.Create(streamWriter, XmlFileRepositoryService<T>.writerSettings))
 			{
 				await Task.Run(() => this.serializer.Serialize(xmlWriter, this.entities));
-				await File.WriteAllTextAsync(this.file, stringWriter.ToString());
 			}
 		}
 
@@ -107,15 +106,10 @@ namespace Provisum.Services.Repository
 
 		private static readonly XmlWriterSettings writerSettings = new XmlWriterSettings()
 		{
-			NamespaceHandling = NamespaceHandling.Default,
-			ConformanceLevel = ConformanceLevel.Document,
-			Indent = true,
-			IndentChars = "\t",
-			NewLineChars = "\r\n",
-			NewLineOnAttributes = true
+			ConformanceLevel = ConformanceLevel.Document
 		};
 
-		private readonly XmlSerializer serializer = new XmlSerializer(typeof(T));
+		private readonly XmlSerializer serializer = new XmlSerializer(typeof(List<T>));
 
 		private readonly string file = null;
 
