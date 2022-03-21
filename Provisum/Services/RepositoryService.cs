@@ -27,6 +27,11 @@ namespace Provisum.Services
 		void Remove(T entity);
 
 		/// <summary>
+		/// Clears all the entities.
+		/// </summary>
+		void Clear();
+
+		/// <summary>
 		/// Returns all the entities.
 		/// </summary>
 		IEnumerable<T> All();

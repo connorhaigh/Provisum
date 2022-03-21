@@ -72,16 +72,7 @@ namespace Provisum.Services.Repository
 		}
 
 		/// <inheritdoc />
-		public void Update(T entity)
-		{
-			if (entity == null)
-			{
-				throw new ArgumentNullException(nameof(entity));
-			}
-
-			this.entities.Remove(entity);
-			this.entities.Add(entity);
-		}
+		public void Update(T entity) => throw new NotSupportedException("Cannot update within an XML repository.");
 
 		/// <inheritdoc />
 		public void Remove(T entity)
@@ -93,6 +84,9 @@ namespace Provisum.Services.Repository
 
 			this.entities.Remove(entity);
 		}
+
+		/// <inheritdoc />
+		public void Clear() => this.entities.Clear();
 
 		/// <inheritdoc />
 		public IEnumerable<T> All() => this.entities;
