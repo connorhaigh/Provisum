@@ -13,6 +13,14 @@ namespace Provisum.Wpf.Extensions
 		/// </summary>
 		/// <param name="application">The application.</param>
 		/// <returns>The last active window.</returns>
-		public static Window GetLastActiveWindow(this Application application) => application.Windows.OfType<Window>().LastOrDefault(w => w.IsActive);
+		public static Window GetLastActiveWindow(this Application application)
+		{
+			var applicationWindows = application.Windows.OfType<Window>();
+
+			return
+				applicationWindows.LastOrDefault(w => w.IsActive) ??
+				applicationWindows.LastOrDefault() ??
+				application.MainWindow;
+		}
 	}
 }
