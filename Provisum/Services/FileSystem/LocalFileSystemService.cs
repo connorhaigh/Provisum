@@ -10,6 +10,12 @@ namespace Provisum.Services.FileSystem
 	public sealed class LocalFileSystemService : IFileSystemService
 	{
 		/// <summary>
+		/// Creates a new local file system service instance for the current working directory.
+		/// </summary>
+		/// <returns>The instance.</returns>
+		public static LocalFileSystemService CreateForCurrentDirectory() => new LocalFileSystemService(Environment.CurrentDirectory);
+
+		/// <summary>
 		/// Creates a new local file system service for the specified path.
 		/// </summary>
 		/// <param name="path">The path.</param>
