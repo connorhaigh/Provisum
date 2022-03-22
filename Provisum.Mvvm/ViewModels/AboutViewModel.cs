@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
-using Provisum.Mvvm;
 using Provisum.Services;
 
-namespace Provisum.Wpf.Mvvm.ViewModels
+namespace Provisum.Mvvm.ViewModels
 {
 	/// <summary>
 	/// Represents an about view model, designed to show information about the application.
@@ -11,7 +10,7 @@ namespace Provisum.Wpf.Mvvm.ViewModels
 	public sealed class AboutViewModel : ViewModelBase
 	{
 		/// <summary>
-		/// Creates a new about view model instance with the specified services.
+		/// Creates a new about view model instance with the specified window service and specified application service.
 		/// </summary>
 		/// <param name="windowService">The window service.</param>
 		/// <param name="applicationService">The application service.</param>

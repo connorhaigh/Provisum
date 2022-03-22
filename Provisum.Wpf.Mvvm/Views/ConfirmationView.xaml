@@ -24,12 +24,12 @@
 				Margin="10">
 				<Button
 					Command="{Binding AcceptCommand}"
-					Content="_OK"
+					Content="_Yes"
 					IsDefault="True"
 					MinWidth="75" />
 				<Button
 					Command="{Binding RejectCommand}"
-					Content="_Cancel"
+					Content="_No"
 					IsCancel="True"
 					Margin="5, 0, 0, 0"
 					MinWidth="75" />
@@ -43,8 +43,7 @@
 				FontWeight="Bold" />
 			<TextBlock
 				Text="{Binding Message, FallbackValue='Message'}"
-				TextWrapping="Wrap"
-				Margin="0, 5, 0, 0" />
+				TextWrapping="Wrap" />
 		</StackPanel>
 	</DockPanel>
 </Window>

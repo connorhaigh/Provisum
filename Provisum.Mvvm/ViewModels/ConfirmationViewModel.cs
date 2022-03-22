@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
-using Provisum.Mvvm;
 using Provisum.Services;
 
-namespace Provisum.Wpf.Mvvm.ViewModels
+namespace Provisum.Mvvm.ViewModels
 {
 	/// <summary>
 	/// Represents a confirmation view model, designed to prompt for confirmation, with a yes/no option.
@@ -11,7 +10,7 @@ namespace Provisum.Wpf.Mvvm.ViewModels
 	public sealed class ConfirmationViewModel : ViewModelBase, IViewModelResultProvider
 	{
 		/// <summary>
-		/// Creates a new confirmation view model instance with the specified services, specified title, and specified message.
+		/// Creates a new confirmation view model instance with the specified window service, specified title, and specified message.
 		/// </summary>
 		/// <param name="windowService">The window service.</param>
 		/// <param name="title">The title.</param>
@@ -20,8 +19,8 @@ namespace Provisum.Wpf.Mvvm.ViewModels
 		{
 			this.windowService = windowService ?? throw new ArgumentNullException(nameof(windowService));
 
-			this.title = title;
-			this.message = message;
+			this.Title = title ?? throw new ArgumentNullException(nameof(title));
+			this.Message = message ?? throw new ArgumentNullException(nameof(message));
 
 			this.acceptCommand = new ActionCommand(this.Accept);
 			this.rejectCommand = new ActionCommand(this.Reject);
@@ -55,29 +54,18 @@ namespace Provisum.Wpf.Mvvm.ViewModels
 		public ViewModelResult? Result { get; private set; } = null;
 
 		/// <summary>
-		/// Gets or sets the title.
+		/// Gets the title.
 		/// </summary>
-		public string Title
-		{
-			get => this.title;
-			set => this.SetAndNotify(ref this.title, value, nameof(this.Title));
-		}
+		public string Title { get; } = null;
 
 		/// <summary>
-		/// Gets or sets the message.
+		/// Gets the message.
 		/// </summary>
-		public string Message
-		{
-			get => this.message;
-			set => this.SetAndNotify(ref this.message, value, nameof(this.Message));
-		}
+		public string Message { get; } = null;
 
 		private readonly IWindowService<IViewModel> windowService = null;
 
 		private readonly ActionCommand acceptCommand = null;
 		private readonly ActionCommand rejectCommand = null;
-
-		private string title = null;
-		private string message = null;
 	}
 }
