@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using Provisum.Services;
-using Provisum.Wpf.Extensions;
 
 namespace Provisum.Wpf.Services
 {
@@ -18,7 +19,18 @@ namespace Provisum.Wpf.Services
 				throw new ArgumentNullException(nameof(window));
 			}
 
-			window.Owner = Application.Current.GetLastActiveWindow();
+			window.Owner = this.windows.LastOrDefault();
+
+			EventHandler eventHandler = null;
+
+			window.Closed += eventHandler = (sender, args) =>
+			{
+				window.Closed -= eventHandler;
+
+				this.windows.Remove(window);
+			};
+
+			this.windows.Add(window);
 
 			switch (mode)
 			{
@@ -42,6 +54,10 @@ namespace Provisum.Wpf.Services
 			}
 
 			window.Hide();
+
+			this.windows.Remove(window);
 		}
+
+		private readonly ICollection<Window> windows = new List<Window>();
 	}
 }

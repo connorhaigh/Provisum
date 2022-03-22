@@ -72,9 +72,9 @@ namespace Provisum.Wpf.Mvvm.Services
 				throw new ViewModelWindowServiceException("View model instance is not visible.");
 			}
 
-			this.views.Remove(viewModel);
-
 			this.windowService.Hide(view);
+
+			this.views.Remove(viewModel);
 		}
 
 		/// <summary>
