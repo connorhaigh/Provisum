@@ -19,7 +19,7 @@ namespace Provisum.Services.Api
 		}
 
 		/// <inheritdoc />
-		public async Task<T> Get<T>(string uri)
+		public async Task<T> Get<T>(string uri) where T : class
 		{
 			if (uri == null)
 			{
@@ -34,6 +34,8 @@ namespace Provisum.Services.Api
 
 		/// <inheritdoc />
 		public async Task<TResponse> Post<TRequest, TResponse>(string uri, TRequest request)
+			where TRequest : class
+			where TResponse : class
 		{
 			if (uri == null)
 			{

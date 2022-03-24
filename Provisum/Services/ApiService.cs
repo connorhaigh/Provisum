@@ -13,7 +13,7 @@ namespace Provisum.Services
 		/// <typeparam name="T">The response type.</typeparam>
 		/// <param name="uri">The URI.</param>
 		/// <returns>A task representing the operation.</returns>
-		Task<T> Get<T>(string uri);
+		Task<T> Get<T>(string uri) where T : class;
 
 		/// <summary>
 		/// Performs a POST request to the specified URI with the specified request.
@@ -23,6 +23,8 @@ namespace Provisum.Services
 		/// <param name="uri">The URI.</param>
 		/// <param name="request">The request.</param>
 		/// <returns>A task representing the operation.</returns>
-		Task<TResponse> Post<TRequest, TResponse>(string uri, TRequest request);
+		Task<TResponse> Post<TRequest, TResponse>(string uri, TRequest request)
+			where TRequest : class
+			where TResponse : class;
 	}
 }

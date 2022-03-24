@@ -19,20 +19,4 @@
 		/// <param name="window">The window.</param>
 		void Hide(T window);
 	}
-
-	/// <summary>
-	/// Represents a <see cref="IWindowService{T}" /> show mode.
-	/// </summary>
-	public enum WindowServiceShowMode
-	{
-		/// <summary>
-		/// Represents modeless (non-blocking).
-		/// </summary>
-		Modeless,
-
-		/// <summary>
-		/// Represents modal (blocking).
-		/// </summary>
-		Modal
-	}
 }
