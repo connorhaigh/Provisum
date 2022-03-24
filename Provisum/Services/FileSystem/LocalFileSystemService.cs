@@ -11,11 +11,11 @@ namespace Provisum.Services.FileSystem
 	public sealed class LocalFileSystemService : IFileSystemService
 	{
 		/// <summary>
-		/// Creates a new local file system service instance for the path within the application data directory for the specified subdirectories, creating the directories if necessary.
+		/// Creates a new local file system service instance within the application data directory for the specified subdirectories.
 		/// </summary>
 		/// <param name="subdirectories">The subdirectories.</param>
 		/// <returns>The instance.</returns>
-		public static LocalFileSystemService CreateForApplicationDataDirectory(params string[] subdirectories) => new LocalFileSystemService(EnvironmentUtilities.GetApplicationDataPath(subdirectories));
+		public static LocalFileSystemService CreateForApplicationDataDirectory(params string[] subdirectories) => new LocalFileSystemService(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Path.Combine(subdirectories)));
 
 		/// <summary>
 		/// Creates a new local file system service instance for the current working directory.
