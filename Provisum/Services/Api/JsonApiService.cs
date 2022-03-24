@@ -29,9 +29,7 @@ namespace Provisum.Services.Api
 			var responseMessage = await this.client.GetAsync(uri);
 			var responseJson = await responseMessage.Content.ReadAsStringAsync();
 
-			var response = JsonSerializer.Deserialize<T>(responseJson);
-
-			return response;
+			return JsonSerializer.Deserialize<T>(responseJson);
 		}
 
 		/// <inheritdoc />
@@ -52,9 +50,7 @@ namespace Provisum.Services.Api
 			var responseMessage = await this.client.PostAsync(uri, new StringContent(requestJson));
 			var responseJson = await responseMessage.Content.ReadAsStringAsync();
 
-			var response = JsonSerializer.Deserialize<TResponse>(responseJson);
-
-			return response;
+			return JsonSerializer.Deserialize<TResponse>(responseJson);
 		}
 
 		private readonly HttpClient client = new HttpClient()

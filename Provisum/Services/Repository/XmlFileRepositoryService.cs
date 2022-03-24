@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -16,9 +17,12 @@ namespace Provisum.Services.Repository
 		/// <summary>
 		/// Creates a new XML file repository service instance with the specified file.
 		/// </summary>
+		/// <param name="fileSystemService">The file system service.</param>
 		/// <param name="file">The file.</param>
-		public XmlFileRepositoryService(string file)
+		public XmlFileRepositoryService(IFileSystemService fileSystemService, string file)
 		{
+			this.fileSystemService = fileSystemService ?? throw new ArgumentNullException(nameof(fileSystemService));
+
 			if (file == null)
 			{
 				throw new ArgumentNullException(nameof(file));
@@ -33,15 +37,15 @@ namespace Provisum.Services.Repository
 		/// <returns>A task representing the operation.</returns>
 		public async Task Load()
 		{
-			if (!File.Exists(this.file))
+			if (!this.fileSystemService.FileExists(this.file))
 			{
 				return;
 			}
 
-			var xml = await File.ReadAllTextAsync(this.file);
+			var xml = await this.fileSystemService.ReadText(this.file);
 
-			using (var streamReader = new StringReader(xml))
-			using (var xmlReader = XmlReader.Create(streamReader, XmlFileRepositoryService<T>.readerSettings))
+			using (var stringReader = new StringReader(xml))
+			using (var xmlReader = XmlReader.Create(stringReader, XmlFileRepositoryService<T>.readerSettings))
 			{
 				await Task.Run(() => this.entities = (List<T>) this.serializer.Deserialize(xmlReader));
 			}
@@ -53,11 +57,15 @@ namespace Provisum.Services.Repository
 		/// <returns>A task representing the operation.</returns>
 		public async Task Save()
 		{
-			using (var streamWriter = new StreamWriter(this.file))
-			using (var xmlWriter = XmlWriter.Create(streamWriter, XmlFileRepositoryService<T>.writerSettings))
+			var xml = new StringBuilder();
+
+			using (var stringWriter = new StringWriter(xml))
+			using (var xmlWriter = XmlWriter.Create(stringWriter, XmlFileRepositoryService<T>.writerSettings))
 			{
 				await Task.Run(() => this.serializer.Serialize(xmlWriter, this.entities));
 			}
+
+			await this.fileSystemService.WriteText(this.file, xml.ToString());
 		}
 
 		/// <inheritdoc />
@@ -72,7 +80,7 @@ namespace Provisum.Services.Repository
 		}
 
 		/// <inheritdoc />
-		public void Update(T entity) => throw new NotSupportedException("Cannot update within an XML repository.");
+		public void Update(T entity) => throw new NotSupportedException("Cannot update within an file-based XML repository.");
 
 		/// <inheritdoc />
 		public void Remove(T entity)
@@ -104,6 +112,8 @@ namespace Provisum.Services.Repository
 		};
 
 		private readonly XmlSerializer serializer = new XmlSerializer(typeof(List<T>));
+
+		private readonly IFileSystemService fileSystemService = null;
 
 		private readonly string file = null;
 

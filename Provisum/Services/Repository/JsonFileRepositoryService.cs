@@ -13,11 +13,14 @@ namespace Provisum.Services.Repository
 	public sealed class JsonFileRepositoryService<T> : IRepositoryService<T>
 	{
 		/// <summary>
-		/// Creates a new JSON file repository service instance with the specified file.
+		/// Creates a new JSON file repository service instance with the specified file system service and specified file.
 		/// </summary>
+		/// <param name="fileSystemService">The file system service.</param>
 		/// <param name="file">The file.</param>
-		public JsonFileRepositoryService(string file)
+		public JsonFileRepositoryService(IFileSystemService fileSystemService, string file)
 		{
+			this.fileSystemService = fileSystemService ?? throw new ArgumentNullException(nameof(fileSystemService));
+
 			if (file == null)
 			{
 				throw new ArgumentNullException(nameof(file));
@@ -32,12 +35,12 @@ namespace Provisum.Services.Repository
 		/// <returns>A task representing the operation.</returns>
 		public async Task Load()
 		{
-			if (!File.Exists(this.file))
+			if (!this.fileSystemService.FileExists(this.file))
 			{
 				return;
 			}
 
-			var json = await File.ReadAllTextAsync(this.file);
+			var json = await this.fileSystemService.ReadText(this.file);
 
 			this.entities = JsonSerializer.Deserialize<List<T>>(json, JsonFileRepositoryService<T>.options);
 		}
@@ -50,7 +53,7 @@ namespace Provisum.Services.Repository
 		{
 			var json = JsonSerializer.Serialize(this.entities, JsonFileRepositoryService<T>.options);
 
-			await File.WriteAllTextAsync(this.file, json);
+			await this.fileSystemService.WriteText(this.file, json);
 		}
 
 		/// <inheritdoc />
@@ -65,7 +68,7 @@ namespace Provisum.Services.Repository
 		}
 
 		/// <inheritdoc />
-		public void Update(T entity) => throw new NotSupportedException("Cannot update within a JSON repository.");
+		public void Update(T entity) => throw new NotSupportedException("Cannot update within a file-based JSON repository.");
 
 		/// <inheritdoc />
 		public void Remove(T entity)
@@ -93,6 +96,8 @@ namespace Provisum.Services.Repository
 			IncludeFields = false,
 			AllowTrailingCommas = false
 		};
+
+		private readonly IFileSystemService fileSystemService = null;
 
 		private readonly string file = null;
 

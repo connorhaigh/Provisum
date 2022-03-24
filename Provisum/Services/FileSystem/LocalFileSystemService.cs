@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Provisum.Utilities;
 
 namespace Provisum.Services.FileSystem
 {
@@ -9,6 +10,13 @@ namespace Provisum.Services.FileSystem
 	/// </summary>
 	public sealed class LocalFileSystemService : IFileSystemService
 	{
+		/// <summary>
+		/// Creates a new local file system service instance for the path within the application data directory for the specified subdirectories, creating the directories if necessary.
+		/// </summary>
+		/// <param name="subdirectories">The subdirectories.</param>
+		/// <returns>The instance.</returns>
+		public static LocalFileSystemService CreateForApplicationDataDirectory(params string[] subdirectories) => new LocalFileSystemService(EnvironmentUtilities.GetApplicationDataPath(subdirectories));
+
 		/// <summary>
 		/// Creates a new local file system service instance for the current working directory.
 		/// </summary>

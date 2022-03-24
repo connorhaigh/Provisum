@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -36,9 +37,7 @@ namespace Provisum.Services.Api
 			using (var stringReader = new StringReader(responseXml))
 			using (var xmlReader = XmlReader.Create(stringReader))
 			{
-				var response = (T) serializer.Deserialize(xmlReader);
-
-				return response;
+				return (T) serializer.Deserialize(xmlReader);
 			}
 		}
 
@@ -58,23 +57,21 @@ namespace Provisum.Services.Api
 			var requestSerializer = new XmlSerializer(typeof(TRequest));
 			var responseSerializer = new XmlSerializer(typeof(TResponse));
 
-			using (var stringWriter = new StringWriter())
+			var requestXml = new StringBuilder();
+
+			using (var stringWriter = new StringWriter(requestXml))
 			using (var xmlWriter = XmlWriter.Create(stringWriter))
 			{
 				requestSerializer.Serialize(stringWriter, request);
+			}
 
-				var requestXml = stringWriter.ToString();
+			var responseMessage = await this.client.PostAsync(uri, new StringContent(requestXml.ToString()));
+			var responseXml = await responseMessage.Content.ReadAsStringAsync();
 
-				var responseMessage = await this.client.PostAsync(uri, new StringContent(requestXml));
-				var responseXml = await responseMessage.Content.ReadAsStringAsync();
-
-				using (var stringReader = new StringReader(responseXml))
-				using (var xmlReader = XmlReader.Create(stringReader))
-				{
-					var response = (TResponse) responseSerializer.Deserialize(xmlReader);
-
-					return response;
-				}
+			using (var stringReader = new StringReader(responseXml))
+			using (var xmlReader = XmlReader.Create(stringReader))
+			{
+				return (TResponse) responseSerializer.Deserialize(xmlReader);
 			}
 		}
 

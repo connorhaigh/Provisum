@@ -10,7 +10,7 @@ namespace Provisum.Mvvm.ViewModels
 	public sealed class InputViewModel : ViewModelBase, IViewModelResultProvider
 	{
 		/// <summary>
-		/// Creates a new input view model instance with the specified window service, specified title and specified message.
+		/// Creates a new input view model instance with the specified window service, specified title, and specified message.
 		/// </summary>
 		/// <param name="windowService">The window service.</param>
 		/// <param name="title">The title.</param>

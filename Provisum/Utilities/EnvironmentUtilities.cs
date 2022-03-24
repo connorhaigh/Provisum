@@ -9,7 +9,7 @@ namespace Provisum.Utilities
 	public static class EnvironmentUtilities
 	{
 		/// <summary>
-		/// Returns the application data path for the specified subdirectories, creating the directories if necessary.
+		/// Returns the path within the application data directory for the specified subdirectories, creating the directories if necessary.
 		/// </summary>
 		/// <param name="subdirectories">The subdirectories.</param>
 		/// <returns>The application data path.</returns>
