@@ -12,7 +12,7 @@ namespace Provisum.Services.Repository
 	/// Represents a XML file-based repository service.
 	/// </summary>
 	/// <typeparam name="T">The object type.</typeparam>
-	public sealed class XmlFileRepositoryService<T> : IRepositoryService<T>
+	public sealed class XmlFileRepositoryService<T> : IRepositoryService<T> where T : class
 	{
 		/// <summary>
 		/// Creates a new XML file repository service instance with the specified file.

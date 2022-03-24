@@ -9,14 +9,15 @@ namespace Provisum.Services.Persistence
 	/// Represents a JSON file-based persistence service.
 	/// </summary>
 	/// <typeparam name="T">The object type.</typeparam>
-	public sealed class JsonFilePersistenceService<T> : IPersistenceService<T>
+	public sealed class JsonFilePersistenceService<T> : IPersistenceService<T> where T : class
 	{
 		/// <summary>
-		/// Creates a new JSON file persistence service instance with the specified file system service and specified file.
+		/// Creates a new JSON file persistence service instance with the specified file system service, specified file, and specified entity.
 		/// </summary>
 		/// <param name="fileSystemService">The file system service.</param>
 		/// <param name="file">The file.</param>
-		public JsonFilePersistenceService(IFileSystemService fileSystemService, string file)
+		/// <param name="entity">The entity.</param>
+		public JsonFilePersistenceService(IFileSystemService fileSystemService, string file, T entity)
 		{
 			this.fileSystemService = fileSystemService ?? throw new ArgumentNullException(nameof(fileSystemService));
 
@@ -26,17 +27,8 @@ namespace Provisum.Services.Persistence
 			}
 
 			this.file = Path.ChangeExtension(file, ".json");
-		}
 
-		/// <summary>
-		/// Creates a new JSON file persistence service instance with the specified file system service, specified file, and specified entity.
-		/// </summary>
-		/// <param name="fileSystemService">The file system service.</param>
-		/// <param name="file">The file.</param>
-		/// <param name="entity">The entity.</param>
-		public JsonFilePersistenceService(IFileSystemService fileSystemService, string file, T entity) : this(fileSystemService, file)
-		{
-			this.Entity = entity;
+			this.entity = entity ?? throw new ArgumentNullException(nameof(entity));
 		}
 
 		/// <summary>
@@ -52,7 +44,7 @@ namespace Provisum.Services.Persistence
 
 			var json = await this.fileSystemService.ReadText(this.file);
 
-			this.Entity = JsonSerializer.Deserialize<T>(json, JsonFilePersistenceService<T>.options);
+			this.entity = JsonSerializer.Deserialize<T>(json, JsonFilePersistenceService<T>.options);
 		}
 
 		/// <summary>
@@ -61,13 +53,17 @@ namespace Provisum.Services.Persistence
 		/// <returns>A task representing the operation.</returns>
 		public async Task Save()
 		{
-			var json = JsonSerializer.Serialize(this.Entity, JsonFilePersistenceService<T>.options);
+			var json = JsonSerializer.Serialize(this.entity, JsonFilePersistenceService<T>.options);
 
 			await this.fileSystemService.WriteText(this.file, json);
 		}
 
 		/// <inheritdoc />
-		public T Entity { get; set; } = default;
+		public T Entity
+		{
+			get => this.entity;
+			set => this.entity = value ?? throw new ArgumentNullException(nameof(value));
+		}
 
 		private static readonly JsonSerializerOptions options = new JsonSerializerOptions()
 		{
@@ -80,7 +76,8 @@ namespace Provisum.Services.Persistence
 		};
 
 		private readonly IFileSystemService fileSystemService = null;
-
 		private readonly string file = null;
+
+		private T entity = null;
 	}
 }

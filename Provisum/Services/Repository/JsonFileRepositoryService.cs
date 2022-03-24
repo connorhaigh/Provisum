@@ -10,7 +10,7 @@ namespace Provisum.Services.Repository
 	/// Represents a JSON file-based repository service.
 	/// </summary>
 	/// <typeparam name="T">The object type.</typeparam>
-	public sealed class JsonFileRepositoryService<T> : IRepositoryService<T>
+	public sealed class JsonFileRepositoryService<T> : IRepositoryService<T> where T : class
 	{
 		/// <summary>
 		/// Creates a new JSON file repository service instance with the specified file system service and specified file.
