@@ -6,7 +6,7 @@ using Provisum.Services;
 namespace Provisum.Wpf.Services
 {
 	/// <summary>
-	/// Represents a dispatcher-based job service.
+	/// Represents a <see cref="Dispatcher" /> based job service.
 	/// </summary>
 	public sealed class DispatcherJobService : IJobService
 	{

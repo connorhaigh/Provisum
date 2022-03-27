@@ -12,6 +12,7 @@ namespace Provisum.Tests.Extensions
 		public void TestSwap()
 		{
 			var array = new string[] { "Foo", "Bar", "Baz" };
+
 			array.Swap(0, 2);
 
 			Assert.IsTrue(array.SequenceEqual(new string[] { "Baz", "Bar", "Foo" }));
