@@ -17,7 +17,12 @@ namespace Provisum.Wpf.Services
 				this.dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
 				this.action = action ?? throw new ArgumentNullException(nameof(action));
 
-				this.dispatcherTimer = new DispatcherTimer(interval, DispatcherPriority.Normal, this.DispatcherTimerTick, this.dispatcher);
+				this.dispatcherTimer = new DispatcherTimer(DispatcherPriority.Normal, this.dispatcher)
+				{
+					Interval = interval
+				};
+
+				this.dispatcherTimer.Tick += this.DispatcherTimerTick;
 			}
 
 			public void Start() => this.dispatcherTimer.Start();
