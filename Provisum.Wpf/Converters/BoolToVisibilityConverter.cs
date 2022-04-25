@@ -14,6 +14,11 @@ namespace Provisum.Wpf.Converters
 		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
+			if (value == null)
+			{
+				return this.FalseVisibility;
+			}
+
 			if (value is bool boolValue)
 			{
 				if (boolValue)

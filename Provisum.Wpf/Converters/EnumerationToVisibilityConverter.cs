@@ -14,6 +14,11 @@ namespace Provisum.Wpf.Converters
 		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
+			if (value == null)
+			{
+				return this.NotEqualVisibility;
+			}
+
 			if (value is Enum enumValue)
 			{
 				if (enumValue.Equals(this.Value))
@@ -48,7 +53,7 @@ namespace Provisum.Wpf.Converters
 		/// Represents the property for the value.
 		/// </summary>
 		public static readonly DependencyProperty ValueProperty =
-			DependencyProperty.Register("Value", typeof(Enum), typeof(EnumerationToVisibilityConverter), null);
+			DependencyProperty.Register("Value", typeof(Enum), typeof(EnumerationToVisibilityConverter), new PropertyMetadata(null));
 
 		/// <summary>
 		/// Gets or sets the equal visibility.

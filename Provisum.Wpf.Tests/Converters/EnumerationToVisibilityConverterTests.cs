@@ -38,5 +38,16 @@ namespace Provisum.Wpf.Tests.Converters
 
 			Assert.AreEqual(Visibility.Collapsed, converter.Convert(MockEnumeration.Baz, null, null, null));
 		}
+
+		[TestMethod]
+		public void TestConvertNull()
+		{
+			var converter = new EnumerationToVisibilityConverter()
+			{
+				NotEqualVisibility = Visibility.Collapsed,
+			};
+
+			Assert.AreEqual(Visibility.Collapsed, converter.Convert(null, null, null, null));
+		}
 	}
 }

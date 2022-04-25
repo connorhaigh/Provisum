@@ -15,6 +15,11 @@ namespace Provisum.Wpf.Converters
 		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
+			if (value == null)
+			{
+				return this.EmptyVisibility;
+			}
+
 			if (value is IEnumerable enumerableValue)
 			{
 				var count = 0;
@@ -34,7 +39,7 @@ namespace Provisum.Wpf.Converters
 				return this.EmptyVisibility;
 			}
 
-			throw new ArgumentException("Value is not an IEnumerable.", nameof(value));
+			throw new ArgumentException("Value is not an enumerable.", nameof(value));
 		}
 
 		/// <inheritdoc />

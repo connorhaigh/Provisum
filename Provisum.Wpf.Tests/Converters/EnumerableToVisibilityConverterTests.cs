@@ -69,5 +69,16 @@ namespace Provisum.Wpf.Tests.Converters
 
 			Assert.AreEqual(Visibility.Collapsed, converter.Convert(list, null, null, null));
 		}
+
+		[TestMethod]
+		public void TestConvertNull()
+		{
+			var converter = new EnumerableToVisibilityConverter()
+			{
+				EmptyVisibility = Visibility.Collapsed
+			};
+
+			Assert.AreEqual(Visibility.Collapsed, converter.Convert(null, null, null, null));
+		}
 	}
 }
