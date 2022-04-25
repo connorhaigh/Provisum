@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Provisum.Wpf.Converters;
 
 namespace Provisum.Wpf.Tests.Converters
 {
 	[TestClass]
-	public sealed class EnumerationToVisibilityConverterTests
+	public sealed class EnumVisibilityConverterTests
 	{
-		private enum MockEnumeration
+		private enum MockEnum
 		{
 			Foo, Bar, Baz
 		}
@@ -16,33 +15,33 @@ namespace Provisum.Wpf.Tests.Converters
 		[TestMethod]
 		public void TestConvertEqual()
 		{
-			var converter = new EnumerationToVisibilityConverter()
+			var converter = new EnumToVisibilityConverter()
 			{
 				EqualVisibility = Visibility.Visible,
 				NotEqualVisibility = Visibility.Collapsed,
-				Value = MockEnumeration.Foo
+				Value = MockEnum.Foo
 			};
 
-			Assert.AreEqual(Visibility.Visible, converter.Convert(MockEnumeration.Foo, null, null, null));
+			Assert.AreEqual(Visibility.Visible, converter.Convert(MockEnum.Foo, null, null, null));
 		}
 
 		[TestMethod]
 		public void TestConvertNotEqual()
 		{
-			var converter = new EnumerationToVisibilityConverter()
+			var converter = new EnumToVisibilityConverter()
 			{
 				EqualVisibility = Visibility.Visible,
 				NotEqualVisibility = Visibility.Collapsed,
-				Value = MockEnumeration.Foo
+				Value = MockEnum.Foo
 			};
 
-			Assert.AreEqual(Visibility.Collapsed, converter.Convert(MockEnumeration.Baz, null, null, null));
+			Assert.AreEqual(Visibility.Collapsed, converter.Convert(MockEnum.Baz, null, null, null));
 		}
 
 		[TestMethod]
 		public void TestConvertNull()
 		{
-			var converter = new EnumerationToVisibilityConverter()
+			var converter = new EnumToVisibilityConverter()
 			{
 				NotEqualVisibility = Visibility.Collapsed,
 			};

@@ -9,7 +9,7 @@ namespace Provisum.Wpf.Converters
 	/// Represents a <see cref="Enum"/> to <see cref="Visibility" /> converter.
 	/// Returns a specific visibility when the value is either equal or not equal.
 	/// </summary>
-	public sealed class EnumerationToVisibilityConverter : DependencyObject, IValueConverter
+	public sealed class EnumToVisibilityConverter : DependencyObject, IValueConverter
 	{
 		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -31,7 +31,7 @@ namespace Provisum.Wpf.Converters
 				}
 			}
 
-			throw new ArgumentException("Value is not an enumeration.", nameof(value));
+			throw new ArgumentException("Value is not an enum.", nameof(value));
 		}
 
 		/// <inheritdoc />
@@ -41,27 +41,27 @@ namespace Provisum.Wpf.Converters
 		/// Represents the property for the visibility when the value is equal.
 		/// </summary>
 		public static readonly DependencyProperty TrueVisibilityProperty =
-			DependencyProperty.Register("EqualVisibility", typeof(Visibility), typeof(EnumerationToVisibilityConverter), new PropertyMetadata(Visibility.Visible));
+			DependencyProperty.Register("EqualVisibility", typeof(Visibility), typeof(EnumToVisibilityConverter), new PropertyMetadata(Visibility.Visible));
 
 		/// <summary>
 		/// Represents the property for the visibility when the value is not equal.
 		/// </summary>
 		public static readonly DependencyProperty FalseVisibilityProperty =
-			DependencyProperty.Register("NotEqualVisibility", typeof(Visibility), typeof(EnumerationToVisibilityConverter), new PropertyMetadata(Visibility.Collapsed));
+			DependencyProperty.Register("NotEqualVisibility", typeof(Visibility), typeof(EnumToVisibilityConverter), new PropertyMetadata(Visibility.Collapsed));
 
 		/// <summary>
 		/// Represents the property for the value.
 		/// </summary>
 		public static readonly DependencyProperty ValueProperty =
-			DependencyProperty.Register("Value", typeof(Enum), typeof(EnumerationToVisibilityConverter), new PropertyMetadata(null));
+			DependencyProperty.Register("Value", typeof(Enum), typeof(EnumToVisibilityConverter), new PropertyMetadata(null));
 
 		/// <summary>
 		/// Gets or sets the equal visibility.
 		/// </summary>
 		public Visibility EqualVisibility
 		{
-			get => (Visibility) this.GetValue(EnumerationToVisibilityConverter.TrueVisibilityProperty);
-			set => this.SetValue(EnumerationToVisibilityConverter.TrueVisibilityProperty, value);
+			get => (Visibility) this.GetValue(EnumToVisibilityConverter.TrueVisibilityProperty);
+			set => this.SetValue(EnumToVisibilityConverter.TrueVisibilityProperty, value);
 		}
 
 		/// <summary>
@@ -69,8 +69,8 @@ namespace Provisum.Wpf.Converters
 		/// </summary>
 		public Visibility NotEqualVisibility
 		{
-			get => (Visibility) this.GetValue(EnumerationToVisibilityConverter.FalseVisibilityProperty);
-			set => this.SetValue(EnumerationToVisibilityConverter.FalseVisibilityProperty, value);
+			get => (Visibility) this.GetValue(EnumToVisibilityConverter.FalseVisibilityProperty);
+			set => this.SetValue(EnumToVisibilityConverter.FalseVisibilityProperty, value);
 		}
 
 		/// <summary>
@@ -78,8 +78,8 @@ namespace Provisum.Wpf.Converters
 		/// </summary>
 		public Enum Value
 		{
-			get => (Enum) this.GetValue(EnumerationToVisibilityConverter.ValueProperty);
-			set => this.SetValue(EnumerationToVisibilityConverter.ValueProperty, value);
+			get => (Enum) this.GetValue(EnumToVisibilityConverter.ValueProperty);
+			set => this.SetValue(EnumToVisibilityConverter.ValueProperty, value);
 		}
 	}
 }

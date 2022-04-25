@@ -32,7 +32,6 @@ namespace Provisum.Wpf.Converters
 					if (count > this.Count)
 					{
 						return this.NotEmptyVisibility;
-
 					}
 				}
 
