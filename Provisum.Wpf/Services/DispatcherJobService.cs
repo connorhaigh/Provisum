@@ -26,7 +26,15 @@ namespace Provisum.Wpf.Services
 		}
 
 		/// <inheritdoc />
-		public void Submit(Action action) => this.dispatcher.Invoke(action);
+		public void Submit(Action action)
+		{
+			if (action == null)
+			{
+				throw new ArgumentNullException(nameof(action));
+			}
+
+			this.dispatcher.Invoke(action);
+		}
 
 		private readonly Dispatcher dispatcher = null;
 	}
