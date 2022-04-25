@@ -28,13 +28,13 @@ namespace Provisum.Wpf.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 
 		/// <summary>
-		/// Represents the property for when the value is not null.
+		/// Represents the property for for the visibility when the value is not null.
 		/// </summary>
 		public static readonly DependencyProperty NotNullVisibilityProperty =
 			DependencyProperty.Register("NotNullVisibility", typeof(Visibility), typeof(NullToVisibilityConverter), new PropertyMetadata(Visibility.Collapsed));
 
 		/// <summary>
-		/// Represents the property for when the value is null.
+		/// Represents the property for for the visibility when the value is null.
 		/// </summary>
 		public static readonly DependencyProperty NullVisibilityProperty =
 			DependencyProperty.Register("NullVisibility", typeof(Visibility), typeof(NullToVisibilityConverter), new PropertyMetadata(Visibility.Visible));

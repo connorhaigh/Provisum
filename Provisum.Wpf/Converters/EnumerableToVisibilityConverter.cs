@@ -41,19 +41,19 @@ namespace Provisum.Wpf.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 
 		/// <summary>
-		/// Represents the property for when the value is not empty.
+		/// Represents the property for the visibility for when the value is not empty.
 		/// </summary>
 		public static readonly DependencyProperty NotEmptyVisibilityProperty =
 			DependencyProperty.Register("NotEmptyVisibility", typeof(Visibility), typeof(EnumerableToVisibilityConverter), new PropertyMetadata(Visibility.Visible));
 
 		/// <summary>
-		/// Represents the property for when the value is empty.
+		/// Represents the property for the visibility for when the value is empty.
 		/// </summary>
 		public static readonly DependencyProperty EmptyVisibilityProperty =
 			DependencyProperty.Register("EmptyVisibility", typeof(Visibility), typeof(EnumerableToVisibilityConverter), new PropertyMetadata(Visibility.Collapsed));
 
 		/// <summary>
-		/// Represents the property for when to consider an enumerable to be empty.
+		/// Represents the property for the threshold when to consider an enumerable to be empty.
 		/// </summary>
 		public static readonly DependencyProperty CountProperty =
 			DependencyProperty.Register("Count", typeof(int), typeof(EnumerableToVisibilityConverter), new PropertyMetadata(0));
