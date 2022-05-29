@@ -42,7 +42,7 @@ namespace Provisum.Services.Repositories
 
 			var json = await this.fileSystemService.ReadText(this.file);
 
-			this.entities = JsonSerializer.Deserialize<List<T>>(json, options);
+			this.entities = JsonSerializer.Deserialize<List<T>>(json, JsonFileRepositoryService<T>.options);
 		}
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace Provisum.Services.Repositories
 		/// <returns>A task representing the operation.</returns>
 		public async Task Save()
 		{
-			var json = JsonSerializer.Serialize(this.entities, options);
+			var json = JsonSerializer.Serialize(this.entities, JsonFileRepositoryService<T>.options);
 
 			await this.fileSystemService.WriteText(this.file, json);
 		}

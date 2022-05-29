@@ -45,7 +45,7 @@ namespace Provisum.Services.Repositories
 			var xml = await this.fileSystemService.ReadText(this.file);
 
 			using (var stringReader = new StringReader(xml))
-			using (var xmlReader = XmlReader.Create(stringReader, readerSettings))
+			using (var xmlReader = XmlReader.Create(stringReader, XmlFileRepositoryService<T>.readerSettings))
 			{
 				await Task.Run(() => this.entities = (List<T>) this.serializer.Deserialize(xmlReader));
 			}
@@ -60,7 +60,7 @@ namespace Provisum.Services.Repositories
 			var xml = new StringBuilder();
 
 			using (var stringWriter = new StringWriter(xml))
-			using (var xmlWriter = XmlWriter.Create(stringWriter, writerSettings))
+			using (var xmlWriter = XmlWriter.Create(stringWriter, XmlFileRepositoryService<T>.writerSettings))
 			{
 				await Task.Run(() => this.serializer.Serialize(xmlWriter, this.entities));
 			}
