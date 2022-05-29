@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Provisum.Services.Application
+namespace Provisum.Services.Applications
 {
 	/// <summary>
 	/// Represents an <see cref="Assembly" /> application service.

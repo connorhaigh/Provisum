@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Provisum.Services.Transfer
+namespace Provisum.Services.Transfers
 {
 	/// <summary>
 	/// Represents a HTTP-based transfer service.

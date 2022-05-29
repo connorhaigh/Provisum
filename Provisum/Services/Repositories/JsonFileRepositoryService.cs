@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Serialization;
 
-namespace Provisum.Services.Repository
+namespace Provisum.Services.Repositories
 {
 	/// <summary>
-	/// Represents a XML file-based repository service.
+	/// Represents a JSON file-based repository service.
 	/// </summary>
 	/// <typeparam name="T">The object type.</typeparam>
-	public sealed class XmlFileRepositoryService<T> : IRepositoryService<T> where T : class
+	public sealed class JsonFileRepositoryService<T> : IRepositoryService<T> where T : class
 	{
 		/// <summary>
-		/// Creates a new XML file repository service instance with the specified file.
+		/// Creates a new JSON file repository service instance with the specified file system service and specified file.
 		/// </summary>
 		/// <param name="fileSystemService">The file system service.</param>
 		/// <param name="file">The file.</param>
-		public XmlFileRepositoryService(IFileSystemService fileSystemService, string file)
+		public JsonFileRepositoryService(IFileSystemService fileSystemService, string file)
 		{
 			this.fileSystemService = fileSystemService ?? throw new ArgumentNullException(nameof(fileSystemService));
 
@@ -28,7 +26,7 @@ namespace Provisum.Services.Repository
 				throw new ArgumentNullException(nameof(file));
 			}
 
-			this.file = Path.ChangeExtension(file, ".xml");
+			this.file = Path.ChangeExtension(file, ".json");
 		}
 
 		/// <summary>
@@ -42,13 +40,9 @@ namespace Provisum.Services.Repository
 				return;
 			}
 
-			var xml = await this.fileSystemService.ReadText(this.file);
+			var json = await this.fileSystemService.ReadText(this.file);
 
-			using (var stringReader = new StringReader(xml))
-			using (var xmlReader = XmlReader.Create(stringReader, XmlFileRepositoryService<T>.readerSettings))
-			{
-				await Task.Run(() => this.entities = (List<T>) this.serializer.Deserialize(xmlReader));
-			}
+			this.entities = JsonSerializer.Deserialize<List<T>>(json, options);
 		}
 
 		/// <summary>
@@ -57,15 +51,9 @@ namespace Provisum.Services.Repository
 		/// <returns>A task representing the operation.</returns>
 		public async Task Save()
 		{
-			var xml = new StringBuilder();
+			var json = JsonSerializer.Serialize(this.entities, options);
 
-			using (var stringWriter = new StringWriter(xml))
-			using (var xmlWriter = XmlWriter.Create(stringWriter, XmlFileRepositoryService<T>.writerSettings))
-			{
-				await Task.Run(() => this.serializer.Serialize(xmlWriter, this.entities));
-			}
-
-			await this.fileSystemService.WriteText(this.file, xml.ToString());
+			await this.fileSystemService.WriteText(this.file, json);
 		}
 
 		/// <inheritdoc />
@@ -80,7 +68,7 @@ namespace Provisum.Services.Repository
 		}
 
 		/// <inheritdoc />
-		public void Update(T entity) => throw new NotSupportedException("Cannot update within an file-based XML repository.");
+		public void Update(T entity) => throw new NotSupportedException("Cannot update within a file-based JSON repository.");
 
 		/// <inheritdoc />
 		public void Remove(T entity)
@@ -99,19 +87,15 @@ namespace Provisum.Services.Repository
 		/// <inheritdoc />
 		public IEnumerable<T> All() => this.entities;
 
-		private static readonly XmlReaderSettings readerSettings = new XmlReaderSettings()
+		private static readonly JsonSerializerOptions options = new JsonSerializerOptions()
 		{
-			ConformanceLevel = ConformanceLevel.Document,
-			IgnoreComments = true,
-			IgnoreWhitespace = true
+			PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+			DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+			IgnoreReadOnlyProperties = true,
+			IgnoreReadOnlyFields = true,
+			IncludeFields = false,
+			AllowTrailingCommas = false
 		};
-
-		private static readonly XmlWriterSettings writerSettings = new XmlWriterSettings()
-		{
-			ConformanceLevel = ConformanceLevel.Document
-		};
-
-		private readonly XmlSerializer serializer = new XmlSerializer(typeof(List<T>));
 
 		private readonly IFileSystemService fileSystemService = null;
 

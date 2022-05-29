@@ -10,32 +10,6 @@ namespace Provisum.Wpf.Services
 	/// </summary>
 	public sealed class DispatcherTimerService : ITimerService
 	{
-		private sealed class Session : ITimerServiceSession
-		{
-			public Session(Dispatcher dispatcher, TimeSpan interval, Action action)
-			{
-				this.dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
-				this.action = action ?? throw new ArgumentNullException(nameof(action));
-
-				this.dispatcherTimer = new DispatcherTimer(DispatcherPriority.Normal, this.dispatcher)
-				{
-					Interval = interval
-				};
-
-				this.dispatcherTimer.Tick += this.DispatcherTimerTick;
-			}
-
-			public void Start() => this.dispatcherTimer.Start();
-			public void Stop() => this.dispatcherTimer.Stop();
-
-			private void DispatcherTimerTick(object sender, EventArgs args) => this.action.Invoke();
-
-			private readonly Dispatcher dispatcher = null;
-			private readonly Action action = null;
-
-			private readonly DispatcherTimer dispatcherTimer = null;
-		}
-
 		/// <summary>
 		/// Creates a new dispatcher timer service instance for the dispatcher attached to the current application.
 		/// </summary>
@@ -59,7 +33,7 @@ namespace Provisum.Wpf.Services
 				throw new ArgumentNullException(nameof(action));
 			}
 
-			return new Session(this.dispatcher, interval, action);
+			return new DispatcherTimerServiceSession(this.dispatcher, interval, action);
 		}
 
 		private readonly Dispatcher dispatcher = null;

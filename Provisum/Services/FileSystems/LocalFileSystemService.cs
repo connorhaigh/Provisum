@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Provisum.Utilities;
 
-namespace Provisum.Services.FileSystem
+namespace Provisum.Services.FileSystems
 {
 	/// <summary>
 	/// Represents a local file system service.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Provisum.Services.Job
+namespace Provisum.Services.Jobs
 {
 	/// <summary>
 	/// Represents a single-threaded blocking job service.
