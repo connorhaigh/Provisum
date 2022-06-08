@@ -5,7 +5,7 @@ namespace Provisum.Services
 	/// <summary>
 	/// Represents a timer service, for executing tasks at repeated intervals.
 	/// </summary>
-	public interface ITimerService
+	public interface ITimerService : IService
 	{
 		/// <summary>
 		/// Creates a timer instance that can execute the specified action at the specified interval.
