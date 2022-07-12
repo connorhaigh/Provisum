@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Provisum.Services
+﻿namespace Provisum.Services
 {
 	/// <summary>
-	/// Represents a notification service, for displaying system notifications.
+	/// Represents a notification service, for showing notifications.
 	/// </summary>
 	public interface INotificationService
 	{
