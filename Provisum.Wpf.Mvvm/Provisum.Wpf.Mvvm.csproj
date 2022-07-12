@@ -4,11 +4,11 @@
 		<UseWPF>true</UseWPF>
 
 		<Product>Provisum WPF MVVM</Product>
-		<Description>Provisum WPF MVVM is a C# library that complements Provisum to provide a set of functionality to assist with application development using WPF.</Description>
+		<Description>Provisum WPF MVVM is a C# library that complements Provisum to provide a set of functionality to assist with application development using WPF in the MVVM architecture.</Description>
 		<Version>1.0.0</Version>
 
 		<Authors>Connor Haigh</Authors>
-		<Copyright>Connor Haigh 2021</Copyright>
+		<Copyright>Connor Haigh 2022</Copyright>
 
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
