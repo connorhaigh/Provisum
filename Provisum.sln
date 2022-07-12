@@ -18,8 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Provisum.Mvp", "Provisum.Mvp\Provisum.Mvp.csproj", "{42BF437C-BA79-44AF-B5BD-7522EDE06279}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Provisum.Wpf.Mvvm", "Provisum.Wpf.Mvvm\Provisum.Wpf.Mvvm.csproj", "{35DE91E4-E412-4A47-9FE4-5A2D3A161966}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Provisum.Mvvm.Tests", "Provisum.Mvvm.Tests\Provisum.Mvvm.Tests.csproj", "{02F0C4B8-9BB2-4317-9B9A-3B2559E61D6D}"
@@ -46,10 +44,6 @@ Global
 		{FEE56FDA-B3AA-4E2B-983B-78076E6D52A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEE56FDA-B3AA-4E2B-983B-78076E6D52A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEE56FDA-B3AA-4E2B-983B-78076E6D52A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42BF437C-BA79-44AF-B5BD-7522EDE06279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42BF437C-BA79-44AF-B5BD-7522EDE06279}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42BF437C-BA79-44AF-B5BD-7522EDE06279}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42BF437C-BA79-44AF-B5BD-7522EDE06279}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35DE91E4-E412-4A47-9FE4-5A2D3A161966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{35DE91E4-E412-4A47-9FE4-5A2D3A161966}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35DE91E4-E412-4A47-9FE4-5A2D3A161966}.Release|Any CPU.ActiveCfg = Release|Any CPU
